@@ -7,6 +7,7 @@ import com.app.entity.Product;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -53,9 +54,21 @@ public class ProductService {
         return null;
     }
 
-
+    /**
+     * sort by price
+     *
+     * @return
+     */
     public List<Product> findAll() {
-        return productDAO.findAll();
+        List<Product> list = productDAO.findAll();
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i).getProductPrice() > list.get(j).getProductPrice()) {
+                    Collections.swap(list, i, j);
+                }
+            }
+        }
+        return list;
     }
 
     public Product findById(String id) {
