@@ -1,8 +1,8 @@
 package com.app.view;
 
 import com.app.Service.ProductService;
-import com.app.entity.Product;
 import com.app.Utils.Utils;
+import com.app.entity.Product;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -224,16 +224,17 @@ public class DialogAddProduct extends JDialog implements KeyListener {
             product.setProductUnit(textField_dvt.getText().trim());
             product.setProductImage(Utils.pathImage(ta_diachifile.getText().trim()));
             product.setProductCost(Long.parseLong(textField_gianhap.getText()));
-            product.setProductId(textField_masp.getText());
+            product.setProductId(textField_masp.getText().trim());
             if (ProductService.save(product)) {
                 JOptionPane.showMessageDialog(null, "Lưu thành công");
                 dispose();
             }
 
-        } catch (NumberFormatException numberFormatException) {
-            JOptionPane.showMessageDialog(null, numberFormatException, "Lưu thất bại", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, exception, "Lưu thất bại", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception numberFormatException) {
+            JOptionPane.showMessageDialog(null,
+                    numberFormatException.getMessage(),
+                    "Lưu thất bại",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
